@@ -17,7 +17,6 @@ class HomePage(TemplateView):
 
     def get_context_data(self, *args, **kwargs):
         context = super().get_context_data(*args, **kwargs)
-        # context["posts"] = Post.objects.all()
         if self.request.user.is_authenticated:
             following = list(
                 Follower.objects.filter(followed_by=self.request.user).values_list(

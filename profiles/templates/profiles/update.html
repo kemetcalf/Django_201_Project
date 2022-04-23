@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+{% load thumbnail%}
+
+{% block title %}{{ user.username }} Update Account Info{% endblock title %}
+
+{% block body %}
+{% block content %}
+    <!-- component from https://tailwindcomponents.com/component/account-setting-2-->
+    <div class="max-w-4xl min-h-fit px-10 py-6 my-4 bg-white rounded-lg shadow-md">
+        <div class="flex flex-col mx-auto p-4 space-x-4">
+            <h2 class="text-2xl text-gray-900">Update Profile Details</h2>
+            <div class="flex flex-row w-full max-w-2xl p-6 mx-auto ">
+                <form class="flex flex-col space-y-4 mt-6 border-t border-gray-400 pt-4" method="POST" action=".">
+                    {% csrf_token %}
+                    {{ form.as_p }}
+                        {% comment %} {% for fields in form %}
+                            <div class="">
+                                {{ field }}
+                            </div>
+                        {% endfor %} {% endcomment %}
+                        <div class="flex justify-end">
+                            <button class="bg-white text-gray-800 font-bold rounded border-b-2 border-green-500 hover:border-green-600 hover:bg-green-500 hover:text-white shadow-lg py-2 px-6 inline-flex items-center" type="submit">Save Changes</button>
+                        </div>
+                    </form>
+                    <div class="align-middle">
+                        {% thumbnail user.profile.image "300x300" crop="center" as im %}
+                            <img src="{{ im.url }}" width='300' height='300' class="rounded-full border-solid border-white border-2 -mt-3">		
+                        {% endthumbnail %}
+                    </div>
+            </div>
+        </div>
+    </div>
+
+
+
+    
+{% endblock content %}
+{% endblock body %}

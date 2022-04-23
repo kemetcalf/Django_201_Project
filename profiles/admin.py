@@ -1,9 +1,7 @@
 from django.contrib import admin
-from .models import Profile
+from . import models
 
 
+@admin.register(models.Profile)
 class ProfileAdmin(admin.ModelAdmin):
-    pass
-
-
-admin.site.register(Profile, ProfileAdmin)
+    prepopulated_fields = {'slug': ('user',), }

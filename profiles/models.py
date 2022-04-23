@@ -11,6 +11,7 @@ class Profile(models.Model):
         on_delete=models.CASCADE,
         related_name="profile"
     )
+    slug = models.SlugField(null=True)
     image = ImageField(upload_to='profiles')
 
     def __str__(self):
@@ -19,6 +20,6 @@ class Profile(models.Model):
 
 @receiver(post_save, sender=User)
 def create_user_profile(sender, instance, created, **kwargs):
-    """ Create a new Profil( object when a Django User is created)"""
+    """ Create a new Profile() object when a Django User is created)"""
     if created:
         Profile.objects.create(user=instance)

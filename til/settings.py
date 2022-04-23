@@ -50,10 +50,10 @@ INSTALLED_APPS = [
     'feed',
     'profiles',
     'followers',
+    'sorl.thumbnail',
     'allauth',
     'allauth.account',
     'allauth.socialaccount',
-    'sorl.thumbnail',
 ]
 
 MIDDLEWARE = [
