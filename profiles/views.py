@@ -6,8 +6,9 @@ from django.http import JsonResponse, HttpResponseBadRequest
 
 from feed.models import Post
 from followers.models import Follower
-from . models import Profile
+from profiles.models import Profile
 from . forms import UpdateForm
+from . forms_img import ImgUpdateForm
 
 
 class ProfileDetailView(DetailView):
@@ -37,12 +38,37 @@ class ProfileDetailView(DetailView):
 # follow one of the tutorials on this one; still geting NoReverseMatch with profile_update
 
 
-class ProfileUpdateView(UpdateView):
+class ProfileUpdateView(LoginRequiredMixin, UpdateView):
+    # LoginRequiredMixin attrs
+    login_url = '/login/'
+    redirect_field_name = 'redirect_to'
+
+    # UpdateView attrs
     model = User
     form_class = UpdateForm
     template_name = "profiles/update.html"
     success_url = '/'
     context_object_name = "update"
+    slug_field = "id"
+    slug_url_kwarg = "id"
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['profile'] = User.profile
+        return context
+
+
+class ImgUpdateView(LoginRequiredMixin, UpdateView):
+    # LoginRequiredMixin attrs
+    login_url = '/login/'
+    redirect_field_name = 'redirect_to'
+
+    # ImgUpdateView attrs
+    model = Profile
+    form_class = ImgUpdateForm
+    template_name = "profiles/img_update.html"
+    success_url = '/'
+    context_object_name = "img_update"
     slug_field = "id"
     slug_url_kwarg = "id"
 

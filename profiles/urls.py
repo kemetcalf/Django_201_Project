@@ -9,4 +9,6 @@ urlpatterns = [
     path("<str:username>/", views.ProfileDetailView.as_view(), name="detail"),
     path("<slug:id>/update/",
          views.ProfileUpdateView.as_view(), name="update"),
+    path("<slug:id>/img_update/",
+         views.ImgUpdateView.as_view(), name="img_update"),
 ]
